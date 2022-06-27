@@ -1,0 +1,28 @@
+function addTabPage(href,title) { 
+		var key=decodeURI(q);
+		var reg1=new RegExp("<b>","g");
+		var reg2=new RegExp("</b>","g");
+		var reg3=new RegExp("<B>","g");
+		var reg4=new RegExp("</B>","g");
+		if(title.indexOf("-")!=-1){
+			title=title.substring(0,title.indexOf("-"));		
+				}		
+		if(title.indexOf("b")!=-1||title.indexOf("B")!=-1){
+				title=title.replace(reg1,"").replace(reg2,"").replace(reg3,"").replace(reg4,"");		
+				}
+		var myExt = parent.Ext;
+			var maintab = myExt.getCmp("doc-body");//获取TabPanel
+			var tabPage =maintab.add({//动态添加tab页   
+            title:title,
+			id: "search--"+title,
+			closable: true,
+            html:'<iframe src="'+href+'" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe>',            
+			autoScroll:true
+				 });
+		maintab.setActiveTab(tabPage);//设置当前tab页   
+		var docurl=href;
+		docurl = docurl.substr(((docurl.indexOf("finereporthelp")==-1) ? ((docurl.indexOf("html")+4==docurl.length) ? docurl : docurl.indexOf("html") + 5) : docurl.indexOf("finereporthelp") + 24));
+}
+
+var a=document.location.href;
+var q=a.substring(a.indexOf("q=")+2);
